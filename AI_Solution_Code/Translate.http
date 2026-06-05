@@ -1,0 +1,10 @@
+POST https://api.cognitive.microsofttranslator.com/translate?api-version=3.0&from=zh-Hant&to=en
+Ocp-Apim-Subscription-Key: 3qKCKudlKkDaAdZPxtTrGY94JaQknXm7eNu1fWnZ84LORgxvitOdJQQJ99CFACYeBjFXJ3w3AAAbACOG2d2n
+Ocp-Apim-Subscription-Region: eastus
+Content-Type: application/json
+
+[
+  {
+    "Text": "今天天氣很好"
+  }
+]

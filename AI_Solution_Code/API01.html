@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <title>AI-901 Language API Demo</title>
+</head>
+<body>
+    <h2>Azure AI Language API Demo</h2>
+
+    <p>輸入文字：</p>
+    <textarea id="txtInput" rows="5" cols="60">今天天氣很好</textarea>
+    <br><br>
+
+    <button id="btnSend" onclick="sendRequest()">送出分析</button>
+
+    <h3>回傳結果</h3>
+    <pre id="result"></pre>
+
+    <script>
+        const endpoint = "https://ai901-language-ucom.cognitiveservices.azure.com/language/:analyze-text?api-version=2023-04-01";
+        const apiKey = "C9bnW2STIBMBAcvkFBkdZp4QRStVUqhrsLNncYvJFjfzzYXtbn8eJQQJ99CFACYeBjFXJ3w3AAAEACOGLsIB";
+
+        async function sendRequest() {
+            const btn = document.getElementById("btnSend");
+            const text = document.getElementById("txtInput").value.trim();
+            const result = document.getElementById("result");
+
+            if (text.length === 0) {
+                alert("請輸入文字");
+                return;
+            }
+
+            if (text.length > 6000) {
+                alert("最多輸入6000個字");
+                return;
+            }
+
+            btn.disabled = true;
+            result.textContent = "分析中...";
+
+            try {
+                const response = await fetch(endpoint, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Ocp-Apim-Subscription-Key": apiKey
+                    },
+                    body: JSON.stringify({
+                        kind: "LanguageDetection",
+                        analysisInput: {
+                            documents: [
+                                {
+                                    id: "1",
+                                    text: text
+                                }
+                            ]
+                        }
+                    })
+                });
+
+                const data = await response.json();
+                result.textContent = JSON.stringify(data, null, 2);
+            }
+            catch (error) {
+                result.textContent = "發生錯誤：" + error;
+            }
+            finally {
+                btn.disabled = false;
+            }
+        }
+    </script>
+</body>
+</html>

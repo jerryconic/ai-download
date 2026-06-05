@@ -1,0 +1,15 @@
+POST https://ai901-language-ucom.cognitiveservices.azure.com/language/:analyze-text?api-version=2023-04-01
+Content-Type: application/json
+Ocp-Apim-Subscription-Key: C9bnW2STIBMBAcvkFBkdZp4QRStVUqhrsLNncYvJFjfzzYXtbn8eJQQJ99CFACYeBjFXJ3w3AAAEACOGLsIB
+
+{
+  "kind": "LanguageDetection",
+  "analysisInput": {
+    "documents": [
+      {
+        "id": "1",
+        "text": "今天天氣很好"
+      }
+    ]
+  }
+}
